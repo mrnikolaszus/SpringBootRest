@@ -1,6 +1,12 @@
-This is a simple REST API designed for managing equipment and storage. (Test Pet Project)
+Test Pet Project
+
+This is a simple REST API designed for managing equipment and storage. 
+
 It provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on equipment and storage entities.
+
 The API follows RESTful principles.
+
+__________________________________________________________________
 
 GET /api/eq: Retrieve a list of all equipment.
 
@@ -11,6 +17,8 @@ POST /api/eq: Add new equipment to the database.
 PUT /equipment/:id: Update information for a specific piece of equipment.
 
 DELETE /equipment/:id: Delete a piece of equipment.
+
+__________________________________________________________________
 
 GET /api/storage: Retrieve a list of all storage units.
 
