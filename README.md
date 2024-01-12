@@ -1,6 +1,6 @@
 This is a simple REST API designed for managing equipment and storage. (Test Pet Project)
 It provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on equipment and storage entities.
-The APfollows RESTful principles for easy integration into various applications.
+The API follows RESTful principles for easy integration into various applications.
 
 GET /api/eq: Retrieve a list of all equipment.
 GET /api/eq/:id: Retrieve details of a specific piece of equipment.
