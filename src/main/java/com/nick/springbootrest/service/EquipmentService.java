@@ -1,17 +1,18 @@
 package com.nick.springbootrest.service;
 
+import com.nick.springbootrest.model.Equipment;
 import com.nick.springbootrest.model.Storage;
 
 import java.util.List;
 
 public interface EquipmentService {
-    List<Storage> findAllEquipment();
+    List<Equipment> findAllEquipments();
 
-    Storage findEquipmentById(Long id);
+    Equipment findEquipmentById(Long id);
 
-    Storage saveEquipment(Storage equipment);
+    Equipment saveEquipment(Equipment equipment);
 
     void deleteEquipment(Long id);
 
-    void updateEquipment(Storage equipment);
+    void updateEquipment(Equipment equipment);
 }
