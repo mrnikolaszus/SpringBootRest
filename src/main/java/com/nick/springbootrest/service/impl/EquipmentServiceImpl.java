@@ -1,10 +1,10 @@
 package com.nick.springbootrest.service.impl;
 
+import com.nick.springbootrest.exception.EquipmentNotFoundException;
 import com.nick.springbootrest.model.Equipment;
 import com.nick.springbootrest.repository.EquipmentRepository;
 import com.nick.springbootrest.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,17 +23,13 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<Equipment> findAllEquipments() {
         List<Equipment> equipmentList = repository.findAll();
-//        if (equipmentList == null)
-//            throw new NullPointerException("Equipment list is null");
-//        if (equipmentList.isEmpty())
-//            throw new ExpressionException("Equipment list is empty");
         return equipmentList;
     }
 
     @Override
     public Equipment findEquipmentById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Equipment not found with id [" + id + "]"));
+                .orElseThrow(() -> new EquipmentNotFoundException("Equipment not found with id [" + id + "]"));
     }
 
     @Override
@@ -52,7 +48,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Transactional
     public void deleteEquipment(Long id) {
         Equipment equipment = repository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Equipment not found with id [" + id + "]"));
+                .orElseThrow(() -> new EquipmentNotFoundException("Equipment not found with id [" + id + "]"));
         repository.delete(equipment);
     }
 }

@@ -1,10 +1,10 @@
 package com.nick.springbootrest.service.impl;
 
+import com.nick.springbootrest.exception.StorageNotFoundException;
 import com.nick.springbootrest.model.Storage;
 import com.nick.springbootrest.repository.StorageRepository;
 import com.nick.springbootrest.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +28,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Storage findStorageById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Storage not found with id [" + id + "]"));
+                .orElseThrow(() -> new StorageNotFoundException("Storage not found with id [" + id + "]"));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class StorageServiceImpl implements StorageService {
     @Transactional
     public void deleteStorage(Long id) {
         Storage storage = repository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Storage not found with id [" + id + "]"));
+                .orElseThrow(() -> new StorageNotFoundException("Storage not found with id [" + id + "]"));
         repository.delete(storage);
     }
 

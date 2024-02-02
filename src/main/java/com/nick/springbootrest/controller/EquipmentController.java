@@ -1,11 +1,11 @@
 package com.nick.springbootrest.controller;
 
 import com.nick.springbootrest.dto.EquipmentDTO;
+import com.nick.springbootrest.exception.ValidationApiException;
 import com.nick.springbootrest.mapper.EquipmentMapper;
 import com.nick.springbootrest.model.Equipment;
 import com.nick.springbootrest.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -43,7 +43,7 @@ public class EquipmentController {
     public Equipment createEquipment(@RequestBody @Validated EquipmentDTO equipmentDTO,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new ExpressionException("Invalid data: " + bindingResult.getAllErrors());
+            throw new ValidationApiException("Invalid data: " + bindingResult.getAllErrors());
 
         return equipmentService.saveEquipment(mapper.toEntity(equipmentDTO));
     }
@@ -60,12 +60,12 @@ public class EquipmentController {
                               @RequestBody @Validated EquipmentDTO equipmentDTO,
                               BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new ExpressionException("Invalid data: " + bindingResult.getAllErrors());
+            throw new ValidationApiException("Invalid data: " + bindingResult.getAllErrors());
 
         Equipment equipment = equipmentService.findEquipmentById(id);
 
         if (!equipmentDTO.getId().equals(equipment.getId()))
-            throw new ExpressionException("ID doesn't match");
+            throw new ValidationApiException("ID doesn't match");
 
         equipmentService.updateEquipment(mapper.toEntity(equipmentDTO));
     }

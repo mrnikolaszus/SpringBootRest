@@ -1,11 +1,11 @@
 package com.nick.springbootrest.controller;
 
 import com.nick.springbootrest.dto.StorageDTO;
+import com.nick.springbootrest.exception.ValidationApiException;
 import com.nick.springbootrest.mapper.StorageMapper;
 import com.nick.springbootrest.model.Storage;
 import com.nick.springbootrest.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -41,10 +41,10 @@ public class StorageController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Storage createStorage(@RequestBody @Validated StorageDTO storageDTO,
-                               BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new ExpressionException("Invalid data: " + bindingResult.getAllErrors());
-
+                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationApiException("Invalid data: " + bindingResult.getAllErrors());
+        }
         return storageService.saveStorage(mapper.toEntity(storageDTO));
     }
 
@@ -59,13 +59,14 @@ public class StorageController {
     public void updateStorage(@PathVariable Long id,
                               @RequestBody @Validated StorageDTO storageDTO,
                               BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new ExpressionException("Invalid data: " + bindingResult.getAllErrors());
-
+        if (bindingResult.hasErrors()) {
+            throw new ValidationApiException("Invalid data: " + bindingResult.getAllErrors());
+        }
         Storage storage = storageService.findStorageById(id);
 
-        if (!storageDTO.getId().equals(storage.getId()))
-            throw new ExpressionException("ID doesn't match");
+        if (!storageDTO.getId().equals(storage.getId())) {
+            throw new ValidationApiException("ID doesn't match");
+        }
 
         storageService.updateStorage(mapper.toEntity(storageDTO));
     }
